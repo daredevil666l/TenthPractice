@@ -1,0 +1,17 @@
+
+from passlib.context import CryptContext
+
+# Allow passwords of any length by hashing with SHA256 before bcrypt
+pwd_context = CryptContext(
+    schemes=["bcrypt_sha256", "bcrypt"],
+    default="bcrypt_sha256",
+    deprecated="auto",
+)
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password: str) -> str:
+    return pwd_context.hash(password)

@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="chat-layout" data-room-id="{{ room.id }}">
+    <div class="chat-header">
+        <div>
+            <h2>{{ room.name }}</h2>
+            <p class="room-code">Код комнаты: <span>{{ room.code }}</span></p>
+        </div>
+        <a href="/rooms" class="btn-outline-small">← Назад к списку</a>
+    </div>
+
+    <div id="chat-messages" class="chat-messages">
+        {% for message in messages %}
+            <div class="chat-message">
+                <div class="chat-message-header">
+                    <span class="chat-author">
+                        {% if message.user_id == user.id %}
+                            Вы
+                        {% else %}
+                            Пользователь #{{ message.user_id }}
+                        {% endif %}
+                    </span>
+                    <span class="chat-time">{{ message.created_at.strftime("%H:%M:%S %d.%m.%Y") }}</span>
+                </div>
+                <div class="chat-text">{{ message.content }}</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="/rooms/{{ room.id }}/send" class="chat-form">
+        <textarea name="content" rows="2" placeholder="Введите сообщение..." required></textarea>
+        <button type="submit" class="btn-primary">Отправить</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Онлайн-чаты по комнатам" }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="/" class="logo">ChatRooms</a>
+        <div class="nav-links">
+            {% if user %}
+                <span class="nav-username">Привет, {{ user.username }}!</span>
+                <a href="/rooms" class="nav-link">Мои комнаты</a>
+                <a href="/logout" class="nav-link btn-outline">Выйти</a>
+            {% else %}
+                <a href="/login" class="nav-link">Вход</a>
+                <a href="/register" class="nav-link btn-primary">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<main class="container main-container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>Онлайн-чаты по комнатам · FastAPI · Лабораторная работа</p>
+    </div>
+</footer>
+
+<script src="/static/js/chat.js"></script>
+</body>
+</html>
